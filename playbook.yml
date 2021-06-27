@@ -1,0 +1,57 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: install packages
+      become: true
+      dnf:
+        state: present
+        name:
+         - htop
+         - vim
+         - git
+         - zsh
+         - ruby
+         - ruby-devel
+         - tmux
+
+    - name: Install the 'Development tools' package group
+      become: true
+      dnf:
+        name: "@Development tools"
+        state: present
+
+    - name: Install the 'Development Libraries' package group
+      become: true
+      dnf:
+        name: "@Development Libraries"
+        state: present
+
+    - name: Installs latest available version of colorls.
+      gem:
+        name: colorls
+        state: latest
+
+    - name: Clone .dotfiles into home directory
+      ansible.builtin.git:
+        repo:  https://github.com/NickPaul41/dotfiles.git
+        dest: ~/.dotfiles
+        recursive: true
+
+    #- name: Install oh-mh-zsh
+    #  ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    - name: Install powerlevel10k
+      ansible.builtin.git:
+        repo:  https://github.com/romkatv/powerlevel10k.git
+        dest: ~/.oh-my-zsh/themes/powerlevel10k
+
+    - name: Install zsh-z
+      ansible.builtin.git:
+        repo:  https://github.com/agkozak/zsh-z.git
+        dest: ~/.oh-my-zsh/plugins/zsh-z
+
+    - name: Install zsh-autosuggestions
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions
+        dest: ~/.oh-my-zsh/plugins/zsh-autosuggestions
