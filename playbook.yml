@@ -15,6 +15,7 @@
          - ruby-devel
          - tmux
          - fzf
+         - tree
 
     - name: Install the 'Development tools' package group
       become: true
