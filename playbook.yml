@@ -16,6 +16,9 @@
          - tmux
          - fzf
          - tree
+         - wget
+         - maven
+         - java-11-openjdk-devel
 
     - name: Install the 'Development tools' package group
       become: true
